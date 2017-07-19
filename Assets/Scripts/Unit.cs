@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
     public int nextLevelExperience = 160;
 
     [Header("Unit Core")]
-    public bool IsEnabled = true;
+    public bool IsGambitsEnabled = true;
     public string Name;
     public float Health;
     public float HealthPercentage;
@@ -81,10 +81,10 @@ public class Unit : MonoBehaviour
         foreach (var gambit in GambitRules)
         {
             //if it's enabled, the condition is met and we have enough MP
-            if(gambit.IsEnabled && gambit.TargetCondition.IsConditionMet(this) && this.Mana >= gambit.GambitAction.MPCost)
+            if(gambit.IsEnabled && gambit.TargetCondition.IsConditionMet(this, gambit) && this.Mana >= gambit.GambitAction.MPCost)
             {
                 CurrentValidatedRule = gambit;
-                TimeToAttack = gambit.GambitAction.CastTime * Speed;
+                TimeToAttack = gambit.GambitAction.CastTime * Speed; //default speed modifier for player is 1
                 MaxTimeToAttack = TimeToAttack;
                 return;
             }
@@ -99,7 +99,7 @@ public class Unit : MonoBehaviour
 
     public void GambitLoop()
     {
-        if (IsEnabled && CurrentValidatedRule == null)
+        if (CurrentValidatedRule == null)
             ValidateNextRuleFromGambits();
 
         if (CurrentValidatedRule != null)
@@ -234,7 +234,9 @@ public class Unit : MonoBehaviour
         }
 
         HealthPercentage = GetHealthPercentage();
-        GambitLoop();
+
+        if(IsGambitsEnabled)
+            GambitLoop();
     }
 
 

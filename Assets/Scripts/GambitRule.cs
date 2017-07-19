@@ -8,8 +8,6 @@ public class GambitRule {
     public GambitTargetCondition TargetCondition;
     public GambitAction GambitAction;
 
-    public Unit Owner;
-
     public void ToggleEnabled()
     {
         IsEnabled = !IsEnabled;
