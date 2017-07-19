@@ -227,6 +227,9 @@ public class Unit : MonoBehaviour
 
     public void Update()
     {
+        if (GameManager.Instance.IsGameplayFrozen)
+            return;
+
         if (Health <= 0)
         {
             HandleDeath();

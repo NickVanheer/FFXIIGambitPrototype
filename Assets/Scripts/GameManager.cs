@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour {
     public GameObject WhiteMagickParticleSystem;
     public GameObject DamageTextPrefab;
 
+    public bool IsGameplayFrozen = false;
+
     void Awake()
     {
         // First we check if there are any other instances conflicting
@@ -150,19 +152,26 @@ public class GameManager : MonoBehaviour {
 
         Debug.Log("Added " + CurrentEnemies.Count + " enemies");
     }
+
+    public void ToggleGambitsView()
+    {
+        bool isActive = GambitPanelHolder.gameObject.activeInHierarchy;
+        GambitPanelHolder.SetActive(!isActive);
+
+        IsGameplayFrozen = !isActive;
+
+        if (!isActive)
+            Time.timeScale = 0.0f;
+        else
+            Time.timeScale = 1.0f;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            bool isActive = GambitPanelHolder.gameObject.activeInHierarchy;
-            GambitPanelHolder.SetActive(!isActive);
-
-            if (!isActive)
-                Time.timeScale = 0.0f;
-            else
-                Time.timeScale = 1.0f;
+            ToggleGambitsView();
         }
 
         //update Log Display

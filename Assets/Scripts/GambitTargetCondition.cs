@@ -124,7 +124,6 @@ public class TargetAny : GambitTargetCondition
 
     public override bool IsConditionMet(Unit instigator, GambitRule currentRule)
     {
-
         int maxPartySize = GameManager.Instance.CurrentPartyMembers.Count;
         if (currentRule.GambitAction == currentAction && currentIndex < maxPartySize)
         {
