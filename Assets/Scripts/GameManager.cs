@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
 
     public bool IsGameplayFrozen = false;
 
+    public float GetNearestRange = 5.0f;
+
     void Awake()
     {
         // First we check if there are any other instances conflicting
@@ -214,11 +216,11 @@ public class GameManager : MonoBehaviour {
 
         //when the player uses this action, target all enemies
         if(source.gameObject.tag == "Player")
-            result = GetNearestInRange(source, CurrentEnemies, 10.0f);
+            result = GetNearestInRange(source, CurrentEnemies, GetNearestRange);
 
         //when the enemy uses this action, target all players
         if (source.gameObject.tag == "Enemy")
-            result = GetNearestInRange(source, CurrentPartyMembers, 10.0f);
+            result = GetNearestInRange(source, CurrentPartyMembers, GetNearestRange);
 
         return result;
     }

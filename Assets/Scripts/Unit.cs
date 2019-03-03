@@ -102,7 +102,7 @@ public class Unit : MonoBehaviour
         if (CurrentValidatedRule == null)
             ValidateNextRuleFromGambits();
 
-        if (CurrentValidatedRule != null)
+        if (CurrentValidatedRule != null && CurrentValidatedRule.TargetCondition.ResultUnit != null)
         {
             StartDelay -= Time.deltaTime;
 
@@ -114,18 +114,18 @@ public class Unit : MonoBehaviour
 
             if (TimeToAttack <= 0)
             {
-                //Only do action when target is still alive
-                if (CurrentValidatedRule.TargetCondition.ResultUnit != null)
-                {
-                    Debug.Log("Unit " + Name + " is using action: " + CurrentValidatedRule.GambitAction.Name);
-                    CurrentValidatedRule.GambitAction.DoAction(this, CurrentValidatedRule.TargetCondition.ResultUnit);
-                    ChangeMana(-CurrentValidatedRule.GambitAction.MPCost);
-                }
+                Debug.Log("Unit " + Name + " is using action: " + CurrentValidatedRule.GambitAction.Name);
+                CurrentValidatedRule.GambitAction.DoAction(this, CurrentValidatedRule.TargetCondition.ResultUnit);
+                ChangeMana(-CurrentValidatedRule.GambitAction.MPCost);
 
                 CurrentValidatedRule = null;
                 TimeToAttack = 0;
                 StartDelay = startDelayCache;
             }
+        }
+        else
+        {
+            CurrentValidatedRule = null;
         }
     }
 
