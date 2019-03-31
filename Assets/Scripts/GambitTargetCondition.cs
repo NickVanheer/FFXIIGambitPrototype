@@ -67,6 +67,33 @@ public class AllyHPBelowValuePercentage : GambitTargetCondition
     }
 }
 
+public class TargetIsHealthAt : GambitTargetCondition
+{
+    int percent;
+    public TargetIsHealthAt(string displayName, int percentage) : base(displayName, GambitTargetType.Enemy)
+    {
+        this.percent = percentage;
+    }
+
+    public override bool IsConditionMet(Unit instigator, GambitRule currentRule)
+    {
+        foreach (var unitGO in GameManager.Instance.CurrentPartyMembers)
+        {
+            Unit unit = unitGO.GetComponent<Unit>();
+            if (unit.IsLeader && unit.CurrentValidatedRule != null && unit.CurrentValidatedRule.TargetCondition.TargetType == GambitTargetType.Enemy)
+            {
+                if(unit.CurrentValidatedRule.TargetCondition.ResultUnit.HealthPercentage == percent)
+                {
+                    ResultUnit = unit.CurrentValidatedRule.TargetCondition.ResultUnit;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+
 public class TargetNearestVisible : GambitTargetCondition
 {
     public TargetNearestVisible() : base("Target: Nearest Visible", GambitTargetType.Enemy) { }

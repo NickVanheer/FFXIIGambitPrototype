@@ -49,8 +49,8 @@ public class StealAction : GambitAction
     public override void DoAction(Unit source, Unit target)
     {
         //steal gil from enemy
+        GameManager.Instance.SpawnDamageText("Stole: Potion", target.transform.position);
         GameManager.Instance.SpawnActionEffect(EffectType.BasicAttack, target);
-        GameManager.Instance.SpawnDamageText("Tried stealing", target.transform.position + new Vector3(0, 1, 0));
     }
 }
 
@@ -79,7 +79,7 @@ public class FireAction : GambitAction
 
         if (target.Weakness == UnitWeakness.Fire)
         {
-            value = 1300; //decimate it
+            value = 130; //decimate it
             GameManager.Instance.SpawnDamageText("WEAK", target.transform.position);
         }
 

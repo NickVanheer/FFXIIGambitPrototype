@@ -39,14 +39,16 @@ public class GambitVisualController : MonoBehaviour {
         AllTargetConditions.Add(new TargetSelf());
         AllTargetConditions.Add(new TargetAny());
 
-        AllTargetConditions.Add(new TargetWeakToElement("Target: Weak to Fire", UnitWeakness.Fire));
-        AllTargetConditions.Add(new TargetWeakToElement("Target: Weak to Electricity", UnitWeakness.Electricity));
-        AllTargetConditions.Add(new TargetWeakToElement("Target: Weak to Water", UnitWeakness.Water));
-        AllTargetConditions.Add(new TargetWeakToElement("Target: Weak to Wind", UnitWeakness.Wind));
+        AllTargetConditions.Add(new TargetWeakToElement("Foe: Weak to Fire", UnitWeakness.Fire));
+        AllTargetConditions.Add(new TargetWeakToElement("Foe: Weak to Electricity", UnitWeakness.Electricity));
+        AllTargetConditions.Add(new TargetWeakToElement("Foe: Weak to Water", UnitWeakness.Water));
+        AllTargetConditions.Add(new TargetWeakToElement("Foe: Weak to Wind", UnitWeakness.Wind));
 
         AllTargetConditions.Add(new AllyHPBelowValuePercentage("Ally: HP <= 70%", 70));
         AllTargetConditions.Add(new AllyHPBelowValuePercentage("Ally: HP <= 50%", 50));
         AllTargetConditions.Add(new AllyHPBelowValuePercentage("Ally: HP <= 20%", 20));
+
+        AllTargetConditions.Add(new TargetIsHealthAt("Foe: Health 100%", 100));
         //
         AllActions = new List<GambitAction>();
         AllActions.Add(new AttackAction());
